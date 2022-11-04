@@ -10,6 +10,7 @@ import java.util.Random;
  *
  * @author gdgalvis
  */
+//Clase donde se crea el punto
 class Punto {
 
     public int x;
@@ -24,10 +25,13 @@ public class JavaApplication1 {
     public static long[] times = new long[5];
     public static int[] comps = new int[5];
     public static int cc=0;
+	//Funcion Principal del codigo
 public static void main(String[] args) {
         int tamaño= (int) Math.pow(2, 15);
         Punto[] x = new Punto[tamaño];
+	//El siguiente loop repite el proceso 5 veces para sacr el promedio
         for(int i=0; i<5; i++) {
+	//Este for se asegura de que no hay coordenas repetidas que generen distancia minima de 0
             for (int j=0; j<tamaño; j++) {
                 int cx= (int)(Math.random()*(101));
                 int cy= (int)(Math.random()*(101));
@@ -63,9 +67,11 @@ public static void main(String[] args) {
                 }
             }
             cc=0;
+		//Se toma el tiempo de inicio
             long start = System.nanoTime();
             float[] ans = cercano(x,tamaño);
             long end = System.nanoTime();
+		//Se toma el tiempo de final y se calcula el tiempo
             long time = end - start;
             times[i]=time;
             comps[i]=cc;
@@ -73,7 +79,6 @@ public static void main(String[] args) {
             int y1 = (int) ans[2];
             int x2 = (int) ans[3];
             int y2 = (int) ans[4];
-            //System.out.println("La distancia minima es: " + ans[0] + " Desde el punto: " + x1 + "," + y1 + " hasta el punto " + x2 + ", " + y2);
         }
         long AT=(long) promt(times);
         System.out.println("El tiempo promedio es: " + AT);
@@ -81,7 +86,7 @@ public static void main(String[] args) {
         System.out.println("El numero de comparaciones promedio es: " + AC);
 
     }
-
+	//Calcula de forma interativa la distancia minima
     public static float[] ClosestBrute(int N, Punto P[]) {
         float min = Float.MAX_VALUE;
         float Minactual = 0;
@@ -104,7 +109,7 @@ public static void main(String[] args) {
         return res;
 
     }
-
+	//Calcula la disntanca entre dos pares de puntos
     public static float distancia(Punto p1, Punto p2) {
         double dist = Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
         return (float) dist;
@@ -131,7 +136,7 @@ public static void main(String[] args) {
 
         return res;
     }
-
+//Comparadores de puntos
     static class ComparadorY implements Comparator<Punto> {
         @Override
         public int compare(Punto pointA, Punto pointB) {
@@ -150,7 +155,7 @@ public static void main(String[] args) {
         }
 
     }
-
+//Funcion Recursiva para encontrar los pares cercanos
     public static float[] cercanoRec(Punto[] P,
             int startIndex,
             int endIndex) {
@@ -243,7 +248,7 @@ public static void main(String[] args) {
         }
         return newPoints;
     }
-
+//Promedios
     public static double promt(long[] array) {
 		double sum = 0;
 		for (int i = 0; i < array.length; i++) {
